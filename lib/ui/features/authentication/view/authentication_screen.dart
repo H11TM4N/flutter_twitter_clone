@@ -11,10 +11,11 @@ class AuthScreen extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final appBar = UIConstants.appBar();
     final isSignIn = useState(true);
 
     return Scaffold(
-      appBar: UIConstants.appBar(),
+      appBar: appBar,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
