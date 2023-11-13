@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 
 import '../common/common.dart';
 
-SnackBar kSnackBar(String text) {
-  return SnackBar(
-    content: Text(text),
+void showSnackBar(BuildContext context, String content) {
+  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+    content: Text(content),
     behavior: SnackBarBehavior.floating,
     dismissDirection: DismissDirection.horizontal,
-  );
+  ));
 }
 
 kNavigation(BuildContext context, Widget route) {

@@ -1,6 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_twitter_clone/core/utils.dart';
 import 'package:flutter_twitter_clone/logic/apis/auth_api/auth_api.dart';
+
+final authControllerProvider =
+    StateNotifierProvider<AuthConroller, bool>((ref) {
+  return AuthConroller(
+    authApi: ref.watch(authAPIProvider),
+  );
+});
 
 class AuthConroller extends StateNotifier<bool> {
   final AuthApi _authApi;
@@ -17,7 +25,10 @@ class AuthConroller extends StateNotifier<bool> {
     final response = await _authApi.signUp(
       email: email,
       password: password,
+    ); //* left = onFailure , right = onSuccess
+    response.fold(
+      (left) => showSnackBar(context, left.message),
+      (right) => print(right.email),
     );
-    response.fold((left) => null, (right) => print(right.name));
   }
 }
