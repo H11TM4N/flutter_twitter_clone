@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_twitter_clone/ui/features/authentication/widgets/textformfield.dart';
 
 import '../utils/validaator.dart';
 import '../widgets/elevated_button.dart';
+import '../widgets/textformfield.dart';
 
 class SignUpView extends StatefulWidget {
   const SignUpView({super.key});

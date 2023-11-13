@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:flutter_twitter_clone/data/constants/ui_constants.dart';
 
 import '../utils/utils.dart';
 import 'sign_in_view.dart';
@@ -13,10 +14,7 @@ class AuthScreen extends HookWidget {
     final isSignIn = useState(true);
 
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        // title: twitterLogo,
-      ),
+      appBar: UIConstants.appBar(),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
