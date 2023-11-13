@@ -26,6 +26,7 @@ class AuthConroller extends StateNotifier<bool> {
       email: email,
       password: password,
     ); //* left = onFailure , right = onSuccess
+    state = false;
     response.fold(
       (left) => showSnackBar(context, left.message),
       (right) => print(right.email),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_twitter_clone/common/widgets/loader.dart';
 import 'package:flutter_twitter_clone/ui/features/authentication/controller/auth_contoller.dart';
 
 import '../utils/validaator.dart';
@@ -36,37 +37,42 @@ class _SignUpViewState extends ConsumerState<SignUpView> {
   @override
   Widget build(BuildContext context) {
     final isLoading = ref.watch(authControllerProvider);
-    return Form(
-      key: _formKey,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          KtextFormField(
-            controller: _emailController,
-            validator: Kvalidator.emailValidator,
-            hintText: 'Enter your email',
-          ),
-          const SizedBox(height: 20),
-          KtextFormField(
-            controller: _passwordController,
-            validator: Kvalidator.passwordValidator,
-            hintText: 'Enter your password',
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              KelevatedButton(
-                text: 'Sign up',
-                onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    onSignUp();
-                  }
-                },
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
+
+    if (isLoading) {
+      return const Loader();
+    } else {
+      return Form(
+        key: _formKey,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            KtextFormField(
+              controller: _emailController,
+              validator: Kvalidator.emailValidator,
+              hintText: 'Enter your email',
+            ),
+            const SizedBox(height: 20),
+            KtextFormField(
+              controller: _passwordController,
+              validator: Kvalidator.passwordValidator,
+              hintText: 'Enter your password',
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                KelevatedButton(
+                  text: 'Sign up',
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {
+                      onSignUp();
+                    }
+                  },
+                ),
+              ],
+            ),
+          ],
+        ),
+      );
+    }
   }
 }
