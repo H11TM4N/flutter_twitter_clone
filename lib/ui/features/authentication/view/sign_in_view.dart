@@ -26,6 +26,14 @@ class _SignInViewState extends ConsumerState<SignInView> {
     _passwordController.dispose();
   }
 
+  void onSignIn() {
+    ref.read(authControllerProvider.notifier).signIn(
+          email: _emailController.text,
+          password: _passwordController.text,
+          context: context,
+        );
+  }
+
   @override
   Widget build(BuildContext context) {
     final isLoading = ref.watch(authControllerProvider);
@@ -55,7 +63,9 @@ class _SignInViewState extends ConsumerState<SignInView> {
                 KelevatedButton(
                   text: 'Sign in',
                   onPressed: () async {
-                    if (_formKey.currentState!.validate()) {}
+                    if (_formKey.currentState!.validate()) {
+                      onSignIn();
+                    }
                   },
                 ),
               ],
