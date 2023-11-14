@@ -13,3 +13,7 @@ void showSnackBar(BuildContext context, String content) {
 kNavigation(BuildContext context, Widget route) {
   return Navigator.of(context).push(MyCustomRouteTransition(route: route));
 }
+
+String getUserName(String email) {
+  return email.split('@')[0];
+}
