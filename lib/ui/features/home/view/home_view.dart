@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_twitter_clone/common/common.dart';
+import 'package:flutter_twitter_clone/core/utils.dart';
 import 'package:flutter_twitter_clone/data/constants/costants.dart';
 import 'package:flutter_twitter_clone/data/constants/ui_constants.dart';
+import 'package:flutter_twitter_clone/ui/features/tweet/views/create_tweet_view.dart';
 import 'package:flutter_twitter_clone/ui/theme/theme.dart';
 
 class HomeView extends StatefulWidget {
@@ -22,7 +24,9 @@ class _HomeViewState extends State<HomeView> {
     });
   }
 
-  void onCreateTweet() {}
+  void onCreateTweet() {
+    bottomToTopNavigation(context, const CreateTweetScreen());
+  }
 
   @override
   Widget build(BuildContext context) {

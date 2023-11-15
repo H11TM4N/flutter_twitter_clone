@@ -10,8 +10,12 @@ void showSnackBar(BuildContext context, String content) {
   ));
 }
 
-kNavigation(BuildContext context, Widget route) {
+smoothNavigation(BuildContext context, Widget route) {
   return Navigator.of(context).push(MyCustomRouteTransition(route: route));
+}
+
+bottomToTopNavigation(BuildContext context, Widget route) {
+  return Navigator.of(context).push(BottomToTopPageTransition(route: route));
 }
 
 String getUserName(String email) {

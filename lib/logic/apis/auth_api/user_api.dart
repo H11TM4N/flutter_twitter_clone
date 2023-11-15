@@ -1,4 +1,5 @@
 import 'package:appwrite/appwrite.dart';
+import 'package:appwrite/models.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_twitter_clone/core/core.dart';
 import 'package:flutter_twitter_clone/core/providers.dart';
@@ -13,6 +14,7 @@ final userApiProvider = Provider<UserApi>((ref) {
 
 abstract class IUserAPI {
   FutureEitherVoid saveUserData(AppWriteUser appWriteUser);
+  Future<Document> getUserData(String id);
 }
 
 class UserApi implements IUserAPI {
@@ -24,7 +26,7 @@ class UserApi implements IUserAPI {
       await _db.createDocument(
         databaseId: AppwrieConstants.databaseID,
         collectionId: AppwrieConstants.userCollectionId,
-        documentId: ID.unique(),
+        documentId: appWriteUser.uid,
         data: appWriteUser.toMap(),
       );
       return right(null);
@@ -37,5 +39,14 @@ class UserApi implements IUserAPI {
         Failure(e.toString(), stackTrace),
       );
     }
+  }
+
+  @override
+  Future<Document> getUserData(String uid) {
+    return _db.getDocument(
+      databaseId: AppwrieConstants.databaseID,
+      collectionId: AppwrieConstants.userCollectionId,
+      documentId: uid,
+    );
   }
 }

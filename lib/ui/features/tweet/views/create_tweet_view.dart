@@ -5,15 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_twitter_clone/common/common.dart';
+import 'package:flutter_twitter_clone/ui/features/authentication/controller/auth_contoller.dart';
 import 'package:flutter_twitter_clone/ui/features/tweet/widgets/tweet_textfield.dart';
 
 import '../../../../data/constants/costants.dart';
 import '../../../theme/theme.dart';
 
 class CreateTweetScreen extends ConsumerStatefulWidget {
-  static route() => MaterialPageRoute(
-        builder: (context) => const CreateTweetScreen(),
-      );
   const CreateTweetScreen({super.key});
 
   @override
@@ -37,6 +35,8 @@ class _CreateTweetScreenState extends ConsumerState<CreateTweetScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final currentUser = ref.watch(currentUserDetailsProvider).value;
+
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -54,43 +54,47 @@ class _CreateTweetScreenState extends ConsumerState<CreateTweetScreen> {
           ),
         ],
       ),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Row(
-                children: [
-                  const CircleAvatar(
-                      //TODO: User profile photo
-                      ),
-                  const SizedBox(width: 15),
-                  Expanded(
-                    child: TweetTextfield(controller: _tweetTextController),
-                  ),
-                ],
-              ),
-              if (images.isNotEmpty)
-                CarouselSlider(
-                  items: images.map(
-                    (file) {
-                      return Container(
-                        width: MediaQuery.of(context).size.width,
-                        margin: const EdgeInsets.symmetric(
-                          horizontal: 5,
+      body: currentUser == null
+          ? const Loader()
+          : SafeArea(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        CircleAvatar(
+                          backgroundImage:
+                              NetworkImage(currentUser.value!.profilePic),
                         ),
-                        child: Image.file(file),
-                      );
-                    },
-                  ).toList(),
-                  options: CarouselOptions(
-                    height: 400,
-                    enableInfiniteScroll: false,
-                  ),
+                        const SizedBox(width: 15),
+                        Expanded(
+                          child:
+                              TweetTextfield(controller: _tweetTextController),
+                        ),
+                      ],
+                    ),
+                    if (images.isNotEmpty)
+                      CarouselSlider(
+                        items: images.map(
+                          (file) {
+                            return Container(
+                              width: MediaQuery.of(context).size.width,
+                              margin: const EdgeInsets.symmetric(
+                                horizontal: 5,
+                              ),
+                              child: Image.file(file),
+                            );
+                          },
+                        ).toList(),
+                        options: CarouselOptions(
+                          height: 400,
+                          enableInfiniteScroll: false,
+                        ),
+                      ),
+                  ],
                 ),
-            ],
-          ),
-        ),
-      ),
+              ),
+            ),
       bottomNavigationBar: Container(
         padding: const EdgeInsets.only(bottom: 10),
         decoration: const BoxDecoration(

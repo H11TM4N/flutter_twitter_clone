@@ -20,6 +20,17 @@ final currentUserAccountProvider = FutureProvider((ref) {
   return authController.currentUser();
 });
 
+final currentUserDetailsProvider = FutureProvider((ref) async {
+  final currentUserId = ref.watch(currentUserAccountProvider).value!.$id;
+  final userDetails = ref.watch(userDetailsProvider(currentUserId));
+  return userDetails;
+});
+
+final userDetailsProvider = FutureProvider.family((ref, String uid) async {
+  final authController = ref.watch(authControllerProvider.notifier);
+  return authController.getUserData(uid);
+});
+
 class AuthConroller extends StateNotifier<bool> {
   final AuthApi _authApi;
   final UserApi _userApi;
@@ -53,7 +64,7 @@ class AuthConroller extends StateNotifier<bool> {
           following: const [],
           profilePic: '',
           bannerPic: '',
-          uid: '',
+          uid: right.$id,
           bio: '',
           isTwitterBlue: false,
         );
@@ -79,7 +90,13 @@ class AuthConroller extends StateNotifier<bool> {
     state = false;
     response.fold(
       (left) => showSnackBar(context, left.message),
-      (right) => kNavigation(context, const HomeView()),
+      (right) => smoothNavigation(context, const HomeView()),
     );
+  }
+
+  Future<AppWriteUser> getUserData(String uid) async {
+    final doc = await _userApi.getUserData(uid);
+    final updatedUser = AppWriteUser.fromMap(doc.data);
+    return updatedUser;
   }
 }
