@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_twitter_clone/common/common.dart';
+import 'package:flutter_twitter_clone/ui/features/tweet/widgets/tweet_textfield.dart';
 
 import '../../../../data/constants/costants.dart';
 import '../../../theme/theme.dart';
@@ -64,22 +65,7 @@ class _CreateTweetScreenState extends ConsumerState<CreateTweetScreen> {
                       ),
                   const SizedBox(width: 15),
                   Expanded(
-                    child: TextField(
-                      controller: _tweetTextController,
-                      style: const TextStyle(
-                        fontSize: 22,
-                      ),
-                      decoration: const InputDecoration(
-                        hintText: "What's happening?",
-                        hintStyle: TextStyle(
-                          color: Pallete.greyColor,
-                          fontSize: 22,
-                          fontWeight: FontWeight.w600,
-                        ),
-                        border: InputBorder.none,
-                      ),
-                      maxLines: null,
-                    ),
+                    child: TweetTextfield(controller: _tweetTextController),
                   ),
                 ],
               ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+
+import '../../../theme/theme.dart';
 
 class TweetTextfield extends StatelessWidget {
   final TextEditingController controller;
@@ -11,20 +12,35 @@ class TweetTextfield extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 50, right: 8),
-      child: TextField(
-        controller: controller,
-        keyboardType: TextInputType.multiline,
-        maxLines: null,
-        inputFormatters: [LengthLimitingTextInputFormatter(100)],
-        decoration: const InputDecoration(
-          hintText: 'What\'s happening?',
-          floatingLabelBehavior: FloatingLabelBehavior.always,
-          hintStyle: TextStyle(fontSize: 20),
-          border: InputBorder.none,
-        ),
+    return TextField(
+      controller: controller,
+      style: const TextStyle(
+        fontSize: 22,
       ),
+      decoration: const InputDecoration(
+        hintText: "What's happening?",
+        hintStyle: TextStyle(
+          color: Pallete.greyColor,
+          fontSize: 22,
+          fontWeight: FontWeight.w600,
+        ),
+        border: InputBorder.none,
+      ),
+      maxLines: null,
     );
   }
 }
+
+
+// TextField(
+//         controller: controller,
+//         keyboardType: TextInputType.multiline,
+//         maxLines: null,
+//         inputFormatters: [LengthLimitingTextInputFormatter(100)],
+//         decoration: const InputDecoration(
+//           hintText: 'What\'s happening?',
+//           floatingLabelBehavior: FloatingLabelBehavior.always,
+//           hintStyle: TextStyle(fontSize: 20),
+//           border: InputBorder.none,
+//         ),
+//       ),

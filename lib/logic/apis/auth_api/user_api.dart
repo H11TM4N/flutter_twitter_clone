@@ -2,9 +2,10 @@ import 'package:appwrite/appwrite.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_twitter_clone/core/core.dart';
 import 'package:flutter_twitter_clone/core/providers.dart';
-import 'package:flutter_twitter_clone/data/constants/appwrite_constants.dart';
 import 'package:flutter_twitter_clone/src/models/user.dart';
 import 'package:fpdart/fpdart.dart';
+
+import '../../../data/constants/costants.dart';
 
 final userApiProvider = Provider<UserApi>((ref) {
   return UserApi(db: ref.watch(appwriteDatabaseProvider));
