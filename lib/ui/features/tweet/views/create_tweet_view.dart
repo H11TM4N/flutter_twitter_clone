@@ -63,8 +63,7 @@ class _CreateTweetScreenState extends ConsumerState<CreateTweetScreen> {
                     Row(
                       children: [
                         CircleAvatar(
-                          backgroundImage:
-                              NetworkImage(currentUser.value!.profilePic),
+                          backgroundImage: NetworkImage(currentUser.profilePic),
                         ),
                         const SizedBox(width: 15),
                         Expanded(
